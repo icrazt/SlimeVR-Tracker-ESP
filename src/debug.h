@@ -38,7 +38,7 @@
 //Debug information
 
 #define LOG_LEVEL LOG_LEVEL_DEBUG
-
+    #define DEBUG_SENSOR
 #if LOG_LEVEL == LOG_LEVEL_TRACE
     #define DEBUG_SENSOR
     #define DEBUG_NETWORK

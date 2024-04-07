@@ -255,7 +255,29 @@ uint16_t BNO080::parseCommandReport(void)
 
 		if (command == COMMAND_ME_CALIBRATE)
 		{
+			_debugPort->println(F("--"));
+			_debugPort->println(F("shtpHeader 2 CHANNEL_CONTROL COMMAND_ME_CALIBRATE"));
 			calibrationStatus = shtpData[5 + 0]; //R0 - Status (0 = success, non-zero = fail)
+
+			_debugPort->print(F("ME Calibration Status: 0x"));
+			_debugPort->print(shtpData[5 + 0], HEX);
+			_debugPort->println(F(" "));
+			_debugPort->print(F(" Accel Cal Enable: 0x"));
+			_debugPort->print(shtpData[5 + 1], HEX);
+			_debugPort->println(F(" "));
+			_debugPort->print(F(" Gyro Cal Enable 0x"));
+			_debugPort->print(shtpData[5 + 2], HEX);
+			_debugPort->println(F(" "));
+			_debugPort->print(F(" Mag Cal Enable 0x"));
+			_debugPort->print(shtpData[5 + 3], HEX);
+			_debugPort->println(F(" "));			
+			_debugPort->print(F(" Planar Accel Cal Enable 0x"));
+			_debugPort->print(shtpData[5 + 4], HEX);
+			_debugPort->println(F(" "));
+			_debugPort->print(F(" On Table Cal Enable 0x"));
+			_debugPort->print(shtpData[5 + 5], HEX);
+			_debugPort->println(F(" "));
+			_debugPort->println(F("--"));
 		}
 		return shtpData[0];
 	}
@@ -1407,6 +1429,26 @@ void BNO080::requestCalibrationStatus()
 
 	//Using this shtpData packet, send a command
 	sendCommand(COMMAND_ME_CALIBRATE);
+}
+void BNO080::requestCounter()
+{
+	/*shtpData[3] = 0; //P0 - Reserved
+	shtpData[4] = 0; //P1 - Reserved
+	shtpData[5] = 0; //P2 - Reserved
+	shtpData[6] = 0; //P3 - 0x01 - Subcommand: Get ME Calibration
+	shtpData[7] = 0; //P4 - Reserved
+	shtpData[8] = 0; //P5 - Reserved
+	shtpData[9] = 0; //P6 - Reserved
+	shtpData[10] = 0; //P7 - Reserved
+	shtpData[11] = 0; //P8 - Reserved*/
+
+	for (uint8_t x = 3; x < 12; x++) //Clear this section of the shtpData array
+		shtpData[x] = 0;
+
+	shtpData[3] = 0x01; //P0
+
+	//Using this shtpData packet, send a command
+	sendCommand(COMMAND_COUNTER);
 }
 
 //This tells the BNO080 to save the Dynamic Calibration Data (DCD) to flash

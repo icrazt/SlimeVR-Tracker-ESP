@@ -241,6 +241,8 @@ public:
 	void endCalibration();
 	void saveCalibration();
 	void requestCalibrationStatus(); //Sends command to get status
+	void requestCounter();
+	
 	boolean calibrationComplete();   //Checks ME Cal response for byte 5, R0 - Status
 
 	uint8_t getTapDetector();

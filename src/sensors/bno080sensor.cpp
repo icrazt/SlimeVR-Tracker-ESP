@@ -29,6 +29,7 @@ void BNO080Sensor::motionSetup()
 {
 #ifdef DEBUG_SENSOR
     imu.enableDebugging(Serial);
+    m_Logger.debug("DEBUG_SENSOR ENABLE");
 #endif
     if(!imu.begin(addr, Wire, m_IntPin)) {
         m_Logger.fatal("Can't connect to %s at address 0x%02x", getIMUNameByType(sensorType), addr);
@@ -81,6 +82,7 @@ void BNO080Sensor::motionSetup()
     lastData = millis();
     working = true;
     configured = true;
+
 }
 
 void BNO080Sensor::motionLoop()
@@ -189,6 +191,11 @@ void BNO080Sensor::motionLoop()
         m_Logger.error("Sensor %d doesn't respond. Last reset reason:", sensorId, lastReset);
         m_Logger.error("Last error: %d, seq: %d, src: %d, err: %d, mod: %d, code: %d",
                 lastError.severity, lastError.error_sequence_number, lastError.error_source, lastError.error, lastError.error_module, lastError.error_code);
+    }
+    if (millis() % 8000 == 7999)
+    {
+        imu.requestCalibrationStatus();
+        m_Logger.debug("request clibration");
     }
 }
 
