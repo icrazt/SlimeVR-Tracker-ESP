@@ -55,7 +55,7 @@ void BNO080Sensor::motionSetup()
 
 #if USE_6_AXIS
     if ((sensorType == IMU_BNO085 || sensorType == IMU_BNO086) && BNO_USE_ARVR_STABILIZATION) {
-        imu.enableARVRStabilizedGameRotationVector(10);
+        imu.enableARVRStabilizedGameRotationVector(5);
     } else {
         imu.enableGameRotationVector(10);
     }  
