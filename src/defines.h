@@ -28,7 +28,7 @@
 // Set parameters of IMU and board used
 #define IMU IMU_BNO085
 #define SECOND_IMU IMU
-#define BOARD BOARD_SLIMEVR
+#define BOARD BOARD_LOLIN_C3_MINI
 #define IMU_ROTATION DEG_270
 #define SECOND_IMU_ROTATION DEG_270
 
@@ -85,6 +85,9 @@ PIN_IMU_SDA, PRIMARY_IMU_OPTIONAL, BMI160_QMC_REMAP) \
 // external resistor value in kOhm #define BATTERY_SHIELD_R1 100 // Board voltage
 // divider resistor Ain to GND in kOhm #define BATTERY_SHIELD_R2 220 // Board voltage
 // divider resistor Ain to INPUT_BOARD in kOhm
+#define BATTERY_SHIELD_RESISTANCE 0 //130k BatteryShield, 180k SlimeVR or fill in external resistor value in kOhm
+#define BATTERY_SHIELD_R1 100 // Board voltage divider resistor Ain to GND in kOhm
+#define BATTERY_SHIELD_R2 100  // Board voltage divider resistor Ain to INPUT_BOARD in kOhm
 
 // LED configuration:
 // Configuration Priority 1 = Highest:
@@ -180,9 +183,9 @@ PIN_IMU_SDA, PRIMARY_IMU_OPTIONAL, BMI160_QMC_REMAP) \
 #define PIN_IMU_SDA 5
 #define PIN_IMU_SCL 4
 #define PIN_IMU_INT 6
-#define PIN_IMU_INT_2 8
-#define PIN_BATTERY_LEVEL 3
-#define LED_PIN 7
+#define PIN_IMU_INT_2 7
+#define PIN_BATTERY_LEVEL 0
+#define LED_PIN 8
 //  #define LED_INVERTED false
 #elif BOARD == BOARD_BEETLE32C3
 #define PIN_IMU_SDA 8
